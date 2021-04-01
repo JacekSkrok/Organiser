@@ -12,5 +12,121 @@ consumes:
 produces:
   - application/json
 
-
 paths:
+  /meeting:
+    post:
+      summary: Add meeting.
+      operationId: postMeeting
+      parameters:
+        - description: New meeting data
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Participant'
+      responses:
+        200:
+          description: Sucess
+          schema:
+            $ref: '#/definitions/Meeting'
+        400:
+          description: Client error
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  '/meeting/{meetingId}
+    get:
+
+    delete:
+'
+definitions:
+  Error:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Error message
+    required:
+      - message
+    example:
+      message: 'Apllication error'
+
+  Participant:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Actor id
+      first_name:
+        type: string
+        description: Participant first name
+      last_name:
+        type: string
+        description: Participant last name
+    required:
+      - id
+      - first_name
+      - last_name
+    example:
+      id: 1
+      first_name: Mateusz
+      last_name: Kowalski
+
+  Meeting:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Meeting id
+      name:
+        type: string
+        description: Meeting name
+      date:
+        type: date
+        pattern: /([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/
+        description: Meeting date
+      participants:
+        type: array
+        items:
+          $ref: '#/definitions/Participant'
+    required:
+      - id
+      - name
+      - date
+    example:
+      id: 1
+      name: Fryzjer
+      date: 2021-04-12
+
+  MeetingRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Meeting name
+      date:
+        type: date
+        pattern: /([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/
+        description: Meeting date
+      participants:
+        type: array
+        items:
+          $ref: '#/definitions/Participant'
+    required:
+        - id
+        - name
+        - date
+     example:
+        id: 1
+        name: Fryzjer
+        date: 2021-04-12
+
+
