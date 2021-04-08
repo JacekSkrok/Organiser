@@ -13,6 +13,35 @@ produces:
   - application/json
 
 paths:
+  /user:
+    post:
+      summary: Register user
+      operationId: postUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: New user data
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/RegisterUserRequest'
+      responses:
+        200:
+          description: Successful registration
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          description: Client error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
   /meeting:
     post:
       summary: Add meeting.
@@ -23,7 +52,7 @@ paths:
           name: body
           required: true
           schema:
-            $ref: '#/definitions/Participant'
+            $ref: '#/definitions/Meeting'
       responses:
         200:
           description: Successful operation
@@ -124,12 +153,46 @@ definitions:
     example:
       message: 'Apllication error'
 
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: User id
+      nick_name:
+        type: string
+        description: User nickname
+      email:
+        type: string
+        description: User email address
+
+  RegisterUserRequest:
+    type: object
+    properties:
+      nick_name:
+        type: string
+        description: User nickname
+      email:
+        type: string
+        description: User email address
+      password:
+        type: string
+        description: User password
+    required:
+      - email
+      - password
+    example:
+      nick_name: Mały
+      email: 'w.małachowski@java.pl'
+      password: 'password'
+
+
   Participant:
     type: object
     properties:
       id:
         type: integer
-        description: Actor id
+        description: Participant id
       first_name:
         type: string
         description: Participant first name
@@ -155,7 +218,7 @@ definitions:
         type: string
         description: Meeting name
       date:
-        type: date
+        type: string
         pattern: /([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/
         description: Meeting date
       participants:
@@ -166,10 +229,12 @@ definitions:
       - id
       - name
       - date
+      - participants
     example:
       id: 1
-      name: Fryzjer
-      date: 2021-04-12
+      name: Alergolog
+      date: '2021-04-12'
+      participants:
 
   MeetingList:
     type: object
@@ -205,7 +270,7 @@ definitions:
         type: string
         description: Meeting name
       date:
-        type: date
+        type: string
         pattern: /([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/
         description: Meeting date
       participants:
