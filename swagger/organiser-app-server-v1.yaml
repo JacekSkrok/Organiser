@@ -42,11 +42,20 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  /meeting:
+  /user/{id}/meeting:
     post:
       summary: Add meeting.
       operationId: postMeeting
+      consumes:
+        - application/json
+      produces:
+        - application/json
       parameters:
+        - description: User id
+          in: path
+          name: id
+          required: true
+          type: integer
         - description: New meeting data
           in: body
           name: body
@@ -78,6 +87,11 @@ paths:
       produces:
         - application/json
       parameters:
+        - description: User id
+          in: path
+          name: id
+          required: true
+          type: integer
         - description: Number of records to return
           in: query
           name: limit
@@ -113,7 +127,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  /meeting/{id}:
+  /user/{id}/meeting/{meeting_id}:
     get:
       summary: Getting single meeting
       operationId: getSingleMeeting
@@ -122,9 +136,14 @@ paths:
       produces:
         - application/json
       parameters:
-        - description: Id of a single meeting
+        - description: User id
           in: path
           name: id
+          required: true
+          type: integer
+        - description: Id of a single meeting
+          in: path
+          name: meeting_id
           required: true
           type: integer
       responses:
@@ -132,6 +151,35 @@ paths:
           description: Successful operation - get meeting
           schema:
             $ref: '#/definitions/Meeting'
+        400:
+          description: Client error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /authenticate:
+    post:
+      summary: Authenticate user
+      operationId: postAuthenticate
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - description: Credentials data.
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/AuthenticationRequest'
+      responses:
+        200:
+          description: Successful login
+          schema:
+            $ref: '#/definitions/User'
         400:
           description: Client error
           schema:
@@ -165,6 +213,21 @@ definitions:
       email:
         type: string
         description: User email address
+
+  AuthenticationRequest:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+      - email
+      - password
+    example:
+      email: 'w.małachowski@java.pl'
+      password: 'password'
+
 
   RegisterUserRequest:
     type: object
