@@ -20,6 +20,6 @@ public class UserResource {
     @GET
     public Response getUser(User body) {
 
-        return Response.status(Response.Status.OK).entity("mock ok").build();
+        return Response.status(Response.Status.OK).entity("twoj user").build();
     }
 }
