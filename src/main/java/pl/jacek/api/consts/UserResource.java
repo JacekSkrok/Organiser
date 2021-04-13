@@ -3,6 +3,7 @@ package pl.jacek.api.consts;
 import pl.jacek.api.model.RegisterUserRequest;
 import pl.jacek.api.model.User;
 
+import javax.persistence.Persistence;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -19,7 +20,7 @@ public class UserResource {
 
     @GET
     public Response getUser(User body) {
-
+        Persistence.createEntityManagerFactory("manager").createEntityManager();
         return Response.status(Response.Status.OK).entity("twoj user").build();
     }
 }
