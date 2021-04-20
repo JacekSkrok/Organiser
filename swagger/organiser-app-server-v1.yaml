@@ -179,7 +179,7 @@ paths:
         200:
           description: Successful login
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/AuthenticationResponse'
         400:
           description: Client error
           schema:
@@ -227,6 +227,29 @@ definitions:
     example:
       email: 'w.małachowski@java.pl'
       password: 'password'
+
+
+  AuthenticationResponse:
+    type: object
+    properties:
+      access_token:
+        type: string
+      expires_in:
+        type: integer
+      user_id:
+        type: integer
+      email:
+        type: string
+    required:
+      - access_token
+      - expires_in
+      - user_id
+      - email
+    example:
+      access_token: 'user_access_token'
+      expires_in: 1800
+      user_id: 1
+      email: 'w.małachowski@java.pl'
 
 
   RegisterUserRequest:

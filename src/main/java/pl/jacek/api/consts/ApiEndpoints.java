@@ -7,7 +7,8 @@ public class ApiEndpoints {
     public static final String AUTHENTICATE = "/authenticate";
     public static final String USER = "/user";
 
-    public static final String MEETING = ApiEndpoints.USER + ApiEndpoints.QUERY_PARAM_USER_ID + "/meeting";
+    public static final String MEETING_ALL = ApiEndpoints.USER + ApiEndpoints.QUERY_PARAM_USER_ID + "/meeting";
+    public static final String MEETING_SINGLE = ApiEndpoints.MEETING_ALL + ApiEndpoints.QUERY_PARAM_MEETING_ID;
 
 
     public static final String PARAM_LIMIT = "limit";

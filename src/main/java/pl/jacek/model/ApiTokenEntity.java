@@ -2,6 +2,7 @@ package pl.jacek.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "api_token", schema = "organiser_app", catalog = "")
@@ -12,6 +13,7 @@ public class ApiTokenEntity {
     private String accessToken;
     private String refreshToken;
     private Timestamp validTo;
+    private UserAccountEntity userAccountEntity;
 
     @Id
     @Column(name = "id")
@@ -23,14 +25,20 @@ public class ApiTokenEntity {
         this.id = id;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", nullable = false)
+    public UserAccountEntity getUserAccountEntity() { return this.userAccountEntity; }
+
+    public void setUserAccountEntity(UserAccountEntity userAccountEntity) { this.userAccountEntity = userAccountEntity; }
+
     @Basic
     @Column(name = "created")
     public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
-        this.created = created;
+    public void setCreated(Date created) {
+        this.created = (Timestamp) created;
     }
 
     @Basic
@@ -39,8 +47,8 @@ public class ApiTokenEntity {
         return modified;
     }
 
-    public void setModified(Timestamp modified) {
-        this.modified = modified;
+    public void setModified(Date modified) {
+        this.modified = (Timestamp) modified;
     }
 
     @Basic
@@ -64,13 +72,13 @@ public class ApiTokenEntity {
     }
 
     @Basic
-    @Column(name = "valid_to")
+        @Column(name = "valid_to")
     public Timestamp getValidTo() {
         return validTo;
     }
 
-    public void setValidTo(Timestamp validTo) {
-        this.validTo = validTo;
+    public void setValidTo(Date validTo) {
+        this.validTo = (Timestamp) validTo;
     }
 
     @Override

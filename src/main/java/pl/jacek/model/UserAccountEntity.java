@@ -1,5 +1,9 @@
 package pl.jacek.model;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
+import pl.jacek.exceptions.ValidationException;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -125,5 +129,26 @@ public class UserAccountEntity {
         result = 31 * result + (passSalt != null ? passSalt.hashCode() : 0);
         result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
         return result;
+    }
+
+    public boolean validatePass(String password) throws ValidationException {
+        if (StringUtils.isBlank(password)) {
+            throw new ValidationException("Password is empty");
+        }
+        return generatePassHash(password, this.passSalt).equalsIgnoreCase(this.passHash);
+    }
+
+    private String generatePassHash(String password, String salt) throws ValidationException {
+        if (StringUtils.isBlank(password)) {
+            throw new ValidationException("Password is empty");
+        }
+        if (StringUtils.isBlank(salt)) {
+            throw new ValidationException("Salt is empty");
+        }
+        return DigestUtils.sha256Hex(
+                String.format(
+                        "%s%s",password, salt
+                )
+        );
     }
 }
