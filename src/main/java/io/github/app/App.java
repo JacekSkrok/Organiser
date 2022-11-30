@@ -1,10 +1,9 @@
-package io.github.mat3e;
+package io.github.app;
 
 import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.plus.webapp.EnvConfiguration;
 import org.eclipse.jetty.plus.webapp.PlusConfiguration;
 import org.eclipse.jetty.webapp.*;
-import org.slf4j.LoggerFactory;
 
 import org.eclipse.jetty.server.Server;
 

@@ -62,7 +62,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>io.github.mat3e.App</mainClass>
+                            <mainClass>io.github.app.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
