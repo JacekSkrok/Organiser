@@ -7,20 +7,49 @@
           integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
 </head>
 <body>
-<form class="pure-form" style="width: 40%; margin: 0 auto">
+<form id="welcomeForm" class="pure-form" style="width: 40%; margin: 0 auto">
     <input type="text" name="name" class="pure-input-rounded" placeholder="name">
-    <label  class="pure-radio">
-        <input type="radio"  name="lang" value="1" checked=  />
-        🇬🇧
-    </label>
-    <label class="pure-radio">
-        <input type="radio"  name="lang" value="2" />
-        🇵🇱
-    </label>
-    <form class="pure-form">
-        <input type="text" class="pure-input-rounded" />
-        <button type="submit" class="pure-button-primary">Submit</button>
-    </form>
+    <fieldset id="langs"></fieldset>
+    <button id ="btn" type="submit" class="pure-button-primary">Submit</button>
 </form>
+<div id="welcome" style="width: 40%; margin: 0 auto"></div>
+<script>
+    const API_URL = 'http://localhost:8080/api';
+
+    const CODE_TO_EMOJI = {
+        'en': '🇬🇧',
+        'pl': '🇵🇱',
+        'de': '🇩🇪',
+    }
+    fetch(`${API_URL}/langs`)
+        .then(response => response.json())
+            .then((langArr) => {
+                const checkboxes = langArr.map(l => `
+                    <label  class="pure-radio">
+                        <input type="radio"  name="lang" value="${l.id}"  />
+                        ${CODE_TO_EMOJI[l.code]}
+                    </label
+                `).join('\n');
+                document.getElementById('langs').innerHTML = checkboxes;
+            });
+
+    const div = document.getElementById('welcome')
+    const form = document.getElementById('welcomeForm');
+
+    document.getElementById('btn').addEventListener('click',(event) => {
+        event.preventDefault();
+        const formObj = {
+            name: form.elements.name.value,
+            lang: form.elements.lang.value
+        };
+        fetch(`${API_URL}?${new URLSearchParams(formObj)}`)
+            .then(response =>  response.text())
+            .then((text) => {
+                div.innerHTML = `
+                    <h1>${text}</h1>
+                    `;
+            });
+    });
+</script>
 </body>
 </html>

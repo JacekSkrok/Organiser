@@ -1,5 +1,7 @@
-package io.github.app;
+package io.github.app.hello;
 
+import io.github.app.lang.Lang;
+import io.github.app.lang.LangRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
