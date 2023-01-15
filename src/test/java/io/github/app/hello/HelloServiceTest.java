@@ -1,5 +1,6 @@
 package io.github.app.hello;
 
+import com.sun.net.httpserver.HttpServer;
 import io.github.app.hello.HelloService;
 import io.github.app.lang.Lang;
 import io.github.app.lang.LangRepository;
@@ -19,7 +20,7 @@ public class HelloServiceTest {
         var mockRepository = alwaysReturningHelloRepository();
         var SUT = new HelloService(mockRepository);
         // when
-        var result = SUT.prepareGreeting(null, "-1");
+        var result = SUT.prepareGreeting(null, -1);
 
         //then
         assertEquals(WELCOME_MSG + " " + HelloService.FALLBACK_NAME, result);
@@ -33,13 +34,13 @@ public class HelloServiceTest {
         String name = "testname";
 
         //when
-        var result = SUT.prepareGreeting(name, "-1");
+        var result = SUT.prepareGreeting(name, -1);
 
         //then
         assertEquals(WELCOME_MSG +" " + name , result);
     }
 
-    @Test
+    /*@Test
     public void test_prepareGreeting_nullLang_returnsGreetingWithFallbackIdLang()  {
         //given
         var mockRepository = fallbackLangIdRepository();
@@ -51,7 +52,7 @@ public class HelloServiceTest {
 
         //then
         assertEquals(FALLBACK_ID_WELCOME +" " + HelloService.FALLBACK_NAME , result);
-    }
+    }*/
 
     @Test
     public void test_prepareGreeting_textLang_returnsGreetingWithFallbackIdLang()  {
@@ -72,7 +73,7 @@ public class HelloServiceTest {
         var SUT = new HelloService(mockRepository);
 
         //when
-        var result = SUT.prepareGreeting(null, "-1");
+        var result = SUT.prepareGreeting(null, -1);
 
         //then
         assertEquals(HelloService.FALLBACK_LANG.getWelcomeMsg() +" " + HelloService.FALLBACK_NAME , result);

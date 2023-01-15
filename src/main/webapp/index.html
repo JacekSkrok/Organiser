@@ -51,10 +51,6 @@
         .catch(console.warn);
     });
 
-    // TODO: remove
-    createNewTodo({ id: 1, content: 'mock 1', status: true });
-    createNewTodo({ id: 2, content: 'mock 2', status: false });
-
     function createNewTodo(todo) {
       const label = document.createElement('label');
       label.classList.add('pure-checkbox');
