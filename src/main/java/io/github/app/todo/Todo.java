@@ -14,6 +14,7 @@ class Todo {
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")
     private Integer id;
+
     private String content;
     private boolean status;
 

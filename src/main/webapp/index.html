@@ -20,6 +20,8 @@
         <fieldset>
             <input id="todoText" class="pure-input-rounded pure-input-2-3" placeholder="new TODO">
             <button id="addTodo" class="pure-button pure-button-primary">+</button>
+            <input id="todoIdDelete" class="pure-input-rounded pure-input-2-3" placeholder="TODO ID to delete">
+            <button id="deleteTodo" class="pure-button"> DELETE</button>
         </fieldset>
         <fieldset id="allTodos"></fieldset>
     </form>
@@ -30,6 +32,8 @@
     const TODO_API_URL = `${API_URL}/todos`;
 
     const todoText = document.getElementById('todoText');
+    const todoIdDelete = document.getElementById('todoIdDelete');
+
 
     fetch(TODO_API_URL)
       .then(processOkResponse)
@@ -50,6 +54,31 @@
         .then(() => todoText.value = '')
         .catch(console.warn);
     });
+
+
+    //deleting Todos
+    document.getElementById('deleteTodo').addEventListener('click', (event) => {
+        event.preventDefault();
+        fetch(TODO_API_URL, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ content: todoIdDelete.value })
+        })
+            .then(processOkResponse)
+            .then(deleteTodo(todoIdDelete))
+            .then(() => todoIdDelete.value = '')
+            .catch(console.warn);
+    });
+
+    function deleteTodo(id) {
+        const popup = document.getElementById("mydeletePopup");
+        confirm("Are you sure?");
+        popup.classList.toggle("show");
+
+    }
 
     function createNewTodo(todo) {
       const label = document.createElement('label');

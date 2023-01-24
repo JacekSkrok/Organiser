@@ -51,4 +51,17 @@ public class TodoRepository {
         session.close();
         return newTodo;
     }
+
+    public void deleteTodo(Todo junkTodo) {
+        var session = HibernateUtil.getSessionFactory().openSession();
+        var transaction = session.beginTransaction();
+
+        session.delete(junkTodo);
+
+        transaction.commit();
+        session.close();
+    }
+
+
+
 }
