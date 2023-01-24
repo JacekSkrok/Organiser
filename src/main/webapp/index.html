@@ -68,16 +68,18 @@
             body: JSON.stringify({ content: todoIdDelete.value })
         })
             .then(processOkResponse)
-            .then(deleteTodo(todoIdDelete))
+            .then(deleteTodo())
             .then(() => todoIdDelete.value = '')
             .catch(console.warn);
     });
 
-    function deleteTodo(id) {
+    function deleteTodo() {
         const popup = document.getElementById("mydeletePopup");
         confirm("Are you sure?");
         popup.classList.toggle("show");
-
+        fetch(TODO_API_URL, { method: 'DELETE'})
+            .then(processOkResponse)
+            .then(todos => todos.forEach(createNewTodo))
     }
 
     function createNewTodo(todo) {

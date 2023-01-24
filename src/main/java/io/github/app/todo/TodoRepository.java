@@ -52,16 +52,16 @@ public class TodoRepository {
         return newTodo;
     }
 
-    public void deleteTodo(Todo junkTodo) {
+    public void deleteTodo(Integer id) {
         var session = HibernateUtil.getSessionFactory().openSession();
         var transaction = session.beginTransaction();
 
+        var junkTodo = session.load(Todo.class, id);
         session.delete(junkTodo);
+
 
         transaction.commit();
         session.close();
     }
-
-
 
 }

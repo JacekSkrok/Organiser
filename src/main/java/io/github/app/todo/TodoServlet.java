@@ -56,5 +56,6 @@ public class TodoServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var junkTodo = mapper.readValue(req.getInputStream(),Todo.class);
         resp.setContentType("application/json;charset=UTF-8");
+        repository.deleteTodo(4);
     }
 }
