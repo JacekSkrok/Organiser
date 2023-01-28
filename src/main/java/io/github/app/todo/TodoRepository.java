@@ -59,9 +59,7 @@ public class TodoRepository {
         var junkTodo = session.load(Todo.class, id);
         session.delete(junkTodo);
 
-
         transaction.commit();
         session.close();
     }
-
 }

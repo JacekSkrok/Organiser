@@ -20,8 +20,6 @@
         <fieldset>
             <input id="todoText" class="pure-input-rounded pure-input-2-3" placeholder="new TODO">
             <button id="addTodo" class="pure-button pure-button-primary">+</button>
-            <input id="todoIdDelete" class="pure-input-rounded pure-input-2-3" placeholder="TODO ID to delete">
-            <button id="deleteTodo" class="pure-button"> DELETE</button>
         </fieldset>
         <fieldset id="allTodos"></fieldset>
     </form>
@@ -55,11 +53,20 @@
         .catch(console.warn);
     });
 
+    document.getElementById('deleteTodo').addEventListener('click', (event) => {
+        event.preventDefault();
+        fetch(`${TODO_API_URL}/${todoIdDelete}`, { method: 'DELETE' })
+            .then(processOkResponse)
+            .catch(console.warn);
+        const popup = document.getElementById("mydeletePopup");
+        confirm("Are you sure?" + todoIdDelete);
+    })
 
+/*
     //deleting Todos
     document.getElementById('deleteTodo').addEventListener('click', (event) => {
         event.preventDefault();
-        fetch(TODO_API_URL, {
+        fetch(, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -73,21 +80,34 @@
             .catch(console.warn);
     });
 
-    function deleteTodo() {
+ */
+
+
+    /*function deleteTodo(todo) {
+        const deleteButton = document.getElementById('deleteTodo');
         const popup = document.getElementById("mydeletePopup");
         confirm("Are you sure?");
         popup.classList.toggle("show");
-        fetch(TODO_API_URL, { method: 'DELETE'})
-            .then(processOkResponse)
-            .then(todos => todos.forEach(createNewTodo))
+        deleteButton.
     }
+
+     */
+
+
+    function deleteTodo(todo) {
+
+    }
+
+
 
     function createNewTodo(todo) {
       const label = document.createElement('label');
       label.classList.add('pure-checkbox');
       const checkbox = document.createElement('input');
+      const checkbox1 = document.createElement('btn-remove');
       checkbox.type = 'checkbox';
       checkbox.checked = todo.status;
+      const reset = document.createElement('btn-remove');
       checkbox.addEventListener('click',
         (event) => {
           event.preventDefault();

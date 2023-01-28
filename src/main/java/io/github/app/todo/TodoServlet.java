@@ -35,6 +35,10 @@ public class TodoServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var pathInfo = req.getPathInfo();
 
+        //System.out.println("******************** PATH *****************************");
+        //System.out.println(pathInfo);
+        //System.out.println("******************** PATH *****************************");
+
         try {
             var todoId = Integer.valueOf(pathInfo.substring(1));
             var todo = repository.toggleTodo(todoId);
@@ -54,8 +58,12 @@ public class TodoServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var pathInfo = req.getPathInfo();
+        System.out.println("******************** PATH *****************************");
+        System.out.println(pathInfo);
+        System.out.println("******************** PATH *****************************");
         var junkTodo = mapper.readValue(req.getInputStream(),Todo.class);
         resp.setContentType("application/json;charset=UTF-8");
-        repository.deleteTodo(4);
+        repository.deleteTodo(junkTodo.getId());
     }
 }
