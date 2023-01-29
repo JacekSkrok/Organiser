@@ -53,61 +53,14 @@
         .catch(console.warn);
     });
 
-    document.getElementById('deleteTodo').addEventListener('click', (event) => {
-        event.preventDefault();
-        fetch(`${TODO_API_URL}/${todoIdDelete}`, { method: 'DELETE' })
-            .then(processOkResponse)
-            .catch(console.warn);
-        const popup = document.getElementById("mydeletePopup");
-        confirm("Are you sure?" + todoIdDelete);
-    })
-
-/*
-    //deleting Todos
-    document.getElementById('deleteTodo').addEventListener('click', (event) => {
-        event.preventDefault();
-        fetch(, {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ content: todoIdDelete.value })
-        })
-            .then(processOkResponse)
-            .then(deleteTodo())
-            .then(() => todoIdDelete.value = '')
-            .catch(console.warn);
-    });
-
- */
-
-
-    /*function deleteTodo(todo) {
-        const deleteButton = document.getElementById('deleteTodo');
-        const popup = document.getElementById("mydeletePopup");
-        confirm("Are you sure?");
-        popup.classList.toggle("show");
-        deleteButton.
-    }
-
-     */
-
-
-    function deleteTodo(todo) {
-
-    }
-
 
 
     function createNewTodo(todo) {
       const label = document.createElement('label');
       label.classList.add('pure-checkbox');
       const checkbox = document.createElement('input');
-      const checkbox1 = document.createElement('btn-remove');
       checkbox.type = 'checkbox';
       checkbox.checked = todo.status;
-      const reset = document.createElement('btn-remove');
       checkbox.addEventListener('click',
         (event) => {
           event.preventDefault();
@@ -118,6 +71,19 @@
         });
       label.appendChild(checkbox);
       label.appendChild(document.createTextNode(` ${todo.content}`));
+
+      const trashBtn = document.createElement('button');
+      trashBtn.innerHTML = '<i class="fas fa-trash"></i>';
+      trashBtn.addEventListener('click',
+          (event) => {
+            event.preventDefault();
+              fetch(`${TODO_API_URL}/${todo.id}`, { method: 'DELETE' })
+                .then(processOkResponse)
+                  .catch(console.warn);
+          });
+
+      label.appendChild(trashBtn);
+
       document.getElementById('allTodos').appendChild(label);
     }
 

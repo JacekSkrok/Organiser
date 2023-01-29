@@ -62,8 +62,14 @@ public class TodoServlet extends HttpServlet {
         System.out.println("******************** PATH *****************************");
         System.out.println(pathInfo);
         System.out.println("******************** PATH *****************************");
-        var junkTodo = mapper.readValue(req.getInputStream(),Todo.class);
-        resp.setContentType("application/json;charset=UTF-8");
-        repository.deleteTodo(junkTodo.getId());
+        try
+        {
+            var todoId = Integer.valueOf(pathInfo.substring(1));
+            repository.deleteTodo(todoId);
+            resp.setContentType("application/json;charset=UTF-8");
+
+        } catch (NumberFormatException e) {
+            logger.warn("Wrong path used: " + pathInfo);
+        }
     }
 }
