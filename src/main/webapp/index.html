@@ -30,8 +30,6 @@
     const TODO_API_URL = `${API_URL}/todos`;
 
     const todoText = document.getElementById('todoText');
-    const todoIdDelete = document.getElementById('todoIdDelete');
-
 
     fetch(TODO_API_URL)
       .then(processOkResponse)
@@ -78,13 +76,21 @@
           (event) => {
             event.preventDefault();
               fetch(`${TODO_API_URL}/${todo.id}`, { method: 'DELETE' })
-                .then(processOkResponse)
-                  .catch(console.warn);
+                .then(response => {
+                    if (response.ok) {
+                        label.remove();
+                        refreshTodoList();
+                    } else {
+                        throw new Error(`Status not 200 (${response.status})`);
+                    }
+                })
+                .catch(console.warn);
           });
 
       label.appendChild(trashBtn);
 
       document.getElementById('allTodos').appendChild(label);
+
     }
 
     initWelcomeForm();
@@ -106,6 +112,12 @@
           `).join('\n');
           initWelcomeFormClick();
         });
+    }
+
+    function refreshTodoList() {
+        fetch(TODO_API_URL)
+            .then(processOkResponse)
+            .then(todos => todos.forEach(createNewTodo()))
     }
 
     function initWelcomeFormClick() {
