@@ -5,6 +5,8 @@
     <title>ULTIMATE TODO LIST</title>
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
           integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=zTsrrcBU8aIPIjkpelaEipWBuuHvHY4gC9IosMSbd8cOqrz1JPHrGoHZQZtZMwmU3gZpW84ghxdAWDD-Lo0XdebGmNfckwsKVtd4pvkhkghDXmLPQFtlAB7iEfhS1jAbIfVxWFRBESVkqG-DRlw3dhL07fBDqFUCcpVE9ktYE0YhPVHzHNyb1-ZFwtzUWkdGgpgVfstyY6mnHrurrkAq6QCW23G3aagBMPLMtiY6nnvS-HXTY3lACiV5YbiC7wcPCiqvPQr6iEqqHQIp7W10EEz_8YDso0VobFjV6pQrpFp2s6O3azg2dRaImRQjROEdFj_wix7FligUYJT5xw4u1i_1bMf3KhAfjyBHciZ0jZ5I5gTHKE3Wi_JsotDobzY8JtEao3UJI0UaOCg0vcNHEwW9qA8XpnsywCrjnXgzwtzZu5TNx4aV7z-QSnLZZd-Ncsdt7joBkkvoiWmqv5ZkaD3Gv1iwABzi02FG28kZrvtDym0eqCbFr7QzCcY_AiZvJacaXtT3L8mWp6RA9ncB82sUG6j7CKu0zaqsUyR6MgVMhhxQQtKd-Nc207_5nEhhp3bGBg-DHTlOvqvNA8lDFp9mncRN6h0rU-o9O4_m7XMn6fXYVFyKkd6IcdKgdwMg7kFnZlUFEh7tBkwHfxEYBjndjk_825VCWJyOZ-roQ7vrR0QxQ6CVu6eXpPoXIwXBSRPnZ-uYxUwwZxNC-ufud96w2aqifUyFGHk8qKpSVMIcCjTivH2z9fRfSu6rskyqYDL3d2bg8BC1q4oStesRWw" charset="UTF-8"></script></head>
 <body>
 <main style="width: 40%; margin: 0 auto">
@@ -71,7 +73,7 @@
       label.appendChild(document.createTextNode(` ${todo.content}`));
 
       const trashBtn = document.createElement('button');
-      trashBtn.innerHTML = '<i class="fas fa-trash"></i>';
+      trashBtn.innerHTML = '<i class="fa fa-trash-o" style="font-size:48px;color:red"></i>';
       trashBtn.addEventListener('click',
           (event) => {
             event.preventDefault();
