@@ -38,10 +38,10 @@ Application implement methods:
 
 ## Screenshots
 
-![](https://github.com/JacekSkrok/Organiser/tree/main/src/assets/screens/1.png)
+![](https://github.com/JacekSkrok/Organiser/blob/main/src/assets/screens/1.PNG)
 
 
-![](https://github.com/JacekSkrok/Organiser/tree/main/src/assets/screens/2.png)
+![](https://github.com/JacekSkrok/Organiser/blob/main/src/assets/screens/2.PNG)
 
 ---
 
